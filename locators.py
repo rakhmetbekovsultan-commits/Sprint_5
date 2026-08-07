@@ -2,12 +2,9 @@ from selenium.webdriver.common.by import By
 
 
 class HeaderLocators:
-    # Кнопка «Конструктор» в шапке
     CONSTRUCTOR_BUTTON = (By.XPATH, "//p[text()='Конструктор']")
-    # Кнопка «Личный кабинет» в шапке
     PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//p[text()='Личный Кабинет']")
-    # Логотип Stellar Burgers
-    LOGO = (By.XPATH, "//div[contains(@class, 'Header_logo')]//a")
+    LOGO = (By.XPATH, "//header//a[contains(@href, '/')]") # Обновленный точный селектор логотипа
 
 
 class RegisterPageLocators:
@@ -26,6 +23,11 @@ class LoginPageLocators:
     EMAIL_INPUT = (By.XPATH, "//input[@name='name']")
     PASSWORD_INPUT = (By.XPATH, "//input[@type='password']")
     LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
+    # Добавлено для входа с главной страницы (кнопка «Войти в аккаунт»)
+    MAIN_PAGE_LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
+    # Добавлено для проверок в тестах
+    MAKE_ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
+    LOGIN_LINK = (By.XPATH, "//a[text()='Войти']")
 
 
 class ProfilePageLocators:

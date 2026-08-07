@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from locators import LoginPageLocators, ProfilePageLocators
+from data import URL
 
 BASE_URL = "https://stellarburgers.education-services.ru"
 

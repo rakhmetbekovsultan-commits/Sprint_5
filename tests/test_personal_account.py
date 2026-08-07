@@ -3,6 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from locators import HeaderLocators, LoginPageLocators, ProfilePageLocators
+from data import URL
 
 BASE_URL = "https://stellarburgers.education-services.ru"
 
@@ -43,12 +44,12 @@ class TestPersonalAccount:
         )
         assert logout_button.is_displayed()
 
-    # 2. Переход из личного кабинета в конструктор по клику на «Конструктор» и на логотип
-    def test_go_from_account_to_constructor_by_button_and_logo(self, driver, registered_user):
+    # 2а. Переход в конструктор по клику на кнопку «Конструктор»
+    def test_go_from_account_to_constructor_by_button(self, driver, registered_user):
         email, password, _ = registered_user
         self._login(driver, email, password)
 
-        # Заходим в личный кабинет с ожиданием кликабельности
+        # Заходим в личный кабинет
         WebDriverWait(driver, 15).until(
             EC.element_to_be_clickable(HeaderLocators.PERSONAL_ACCOUNT_BUTTON)
         ).click()
@@ -58,24 +59,31 @@ class TestPersonalAccount:
         WebDriverWait(driver, 15).until(
             EC.element_to_be_clickable(HeaderLocators.CONSTRUCTOR_BUTTON)
         ).click()
-        WebDriverWait(driver, 15).until(EC.url_to_be(f"{BASE_URL}/"))
-        assert driver.current_url == f"{BASE_URL}/"
+        
+        # Проверка перехода
+        WebDriverWait(driver, 15).until(EC.url_to_be(f"{URL.BASE_URL}/"))
+        assert driver.current_url == f"{URL.BASE_URL}/"
 
-        # Снова возвращаемся в кабинет
+    # 2б. Переход в конструктор по клику на логотип
+    def test_go_from_account_to_constructor_by_logo(self, driver, registered_user):
+        email, password, _ = registered_user
+        self._login(driver, email, password)
+
+        # Заходим в личный кабинет
         WebDriverWait(driver, 15).until(
             EC.element_to_be_clickable(HeaderLocators.PERSONAL_ACCOUNT_BUTTON)
         ).click()
         WebDriverWait(driver, 15).until(EC.url_contains("/account"))
 
-        # Ожидаем логотип через прямой XPath-селектор шапки и кликаем через JS
+        # Клик на логотип
         logo = WebDriverWait(driver, 15).until(
-            EC.presence_of_element_located((By.XPATH, "//header//a[contains(@href, '/')]"))
+            EC.presence_of_element_located(HeaderLocators.LOGO)
         )
         driver.execute_script("arguments[0].click();", logo)
         
-        # Проверяем успешный возврат на главную
-        WebDriverWait(driver, 15).until(EC.url_to_be(f"{BASE_URL}/"))
-        assert driver.current_url == f"{BASE_URL}/"
+        # Проверка перехода
+        WebDriverWait(driver, 15).until(EC.url_to_be(f"{URL.BASE_URL}/"))
+        assert driver.current_url == f"{URL.BASE_URL}/"
         
     # 3. Выход из аккаунта по кнопке «Выйти» в личном кабинете
     def test_logout_success(self, driver, registered_user):

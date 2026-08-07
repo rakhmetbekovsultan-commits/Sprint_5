@@ -2,6 +2,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from locators import ConstructorPageLocators
+from data import URL
 
 BASE_URL = "https://stellarburgers.education-services.ru"
 
@@ -48,7 +49,7 @@ class TestConstructor:
         buns_tab.click()
 
         # Проверяем активность вкладки булок так же, как и остальные вкладки
-        assert "current" in buns_tab.get_attribute("class")
+        assert "tab_type_current" in buns_tab.get_attribute("class")
 
     # 4. Проверка открытия модального окна ингредиента
     def test_open_ingredient_modal(self, driver):
