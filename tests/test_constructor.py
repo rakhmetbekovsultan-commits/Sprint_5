@@ -89,3 +89,6 @@ class TestConstructor:
         WebDriverWait(driver, 10).until(
             EC.invisibility_of_element_located(ConstructorPageLocators.MODAL_WINDOW)
         )
+        # assert для финальной проверки отсутствия модального окна в DOM
+        modal_elements = driver.find_elements(*ConstructorPageLocators.MODAL_WINDOW)
+        assert len(modal_elements) == 0
