@@ -5,27 +5,25 @@ from selenium.webdriver.support import expected_conditions as EC
 from locators import LoginPageLocators, ProfilePageLocators
 from data import URL
 
-BASE_URL = "https://stellarburgers.education-services.ru"
-
 
 class TestProfile:
 
     def test_open_profile_page(self, driver, registered_user):
         email, password, _ = registered_user
-        driver.get(f"{BASE_URL}/login")
+        driver.get(URL.LOGIN_URL)
 
         driver.find_element(*LoginPageLocators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*LoginPageLocators.PASSWORD_INPUT).send_keys(password)
         driver.find_element(*LoginPageLocators.LOGIN_BUTTON).click()
 
         WebDriverWait(driver, 10).until(
-            EC.url_to_be(f"{BASE_URL}/")
+            EC.url_to_be(f"{URL.BASE_URL}/")
         )
 
         driver.find_element(*ProfilePageLocators.PROFILE_BUTTON).click()
 
         WebDriverWait(driver, 10).until(
-            EC.url_to_be(f"{BASE_URL}/account/profile")
+            EC.url_to_be(URL.PROFILE_URL)
         )
         email_input = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located(ProfilePageLocators.USER_EMAIL_INPUT)
@@ -34,13 +32,13 @@ class TestProfile:
 
     def test_open_order_history_from_profile(self, driver, registered_user):
         email, password, _ = registered_user
-        driver.get(f"{BASE_URL}/login")
+        driver.get(URL.LOGIN_URL)
 
         driver.find_element(*LoginPageLocators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*LoginPageLocators.PASSWORD_INPUT).send_keys(password)
         driver.find_element(*LoginPageLocators.LOGIN_BUTTON).click()
 
-        WebDriverWait(driver, 10).until(EC.url_to_be(f"{BASE_URL}/"))
+        WebDriverWait(driver, 10).until(EC.url_to_be(f"{URL.BASE_URL}/"))
         driver.find_element(*ProfilePageLocators.PROFILE_BUTTON).click()
 
         history_link = WebDriverWait(driver, 10).until(
@@ -49,19 +47,19 @@ class TestProfile:
         history_link.click()
 
         WebDriverWait(driver, 10).until(
-            EC.url_to_be(f"{BASE_URL}/account/order-history")
+            EC.url_to_be(URL.ORDER_HISTORY_URL)
         )
-        assert driver.current_url == f"{BASE_URL}/account/order-history"
+        assert driver.current_url == URL.ORDER_HISTORY_URL
 
     def test_logout_from_profile(self, driver, registered_user):
         email, password, _ = registered_user
-        driver.get(f"{BASE_URL}/login")
+        driver.get(URL.LOGIN_URL)
 
         driver.find_element(*LoginPageLocators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*LoginPageLocators.PASSWORD_INPUT).send_keys(password)
         driver.find_element(*LoginPageLocators.LOGIN_BUTTON).click()
 
-        WebDriverWait(driver, 10).until(EC.url_to_be(f"{BASE_URL}/"))
+        WebDriverWait(driver, 10).until(EC.url_to_be(f"{URL.BASE_URL}/"))
         driver.find_element(*ProfilePageLocators.PROFILE_BUTTON).click()
 
         logout_btn = WebDriverWait(driver, 10).until(
@@ -70,7 +68,7 @@ class TestProfile:
         logout_btn.click()
 
         WebDriverWait(driver, 10).until(
-            EC.url_to_be(f"{BASE_URL}/login")
+            EC.url_to_be(URL.LOGIN_URL)
         )
         login_btn = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located(LoginPageLocators.LOGIN_BUTTON)
