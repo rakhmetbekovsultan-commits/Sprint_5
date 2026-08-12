@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 class HeaderLocators:
     CONSTRUCTOR_BUTTON = (By.XPATH, "//p[text()='Конструктор']")
     PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//p[text()='Личный Кабинет']")
-    LOGO = (By.XPATH, "//header//a[contains(@href, '/')]") # Обновленный точный селектор логотипа
+    LOGO = (By.XPATH, "//header//a[contains(@href, '/')]")
 
 
 class RegisterPageLocators:
@@ -15,7 +15,6 @@ class RegisterPageLocators:
     PASSWORD_ERROR = (By.XPATH, "//p[contains(@class, 'input__error')]")
 
 
-# Псевдоним, который ищет conftest.py
 RegistrationPageLocators = RegisterPageLocators
 
 
@@ -23,9 +22,7 @@ class LoginPageLocators:
     EMAIL_INPUT = (By.XPATH, "//input[@name='name']")
     PASSWORD_INPUT = (By.XPATH, "//input[@type='password']")
     LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
-    # Добавлено для входа с главной страницы (кнопка «Войти в аккаунт»)
     MAIN_PAGE_LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
-    # Добавлено для проверок в тестах
     MAKE_ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
     LOGIN_LINK = (By.XPATH, "//a[text()='Войти']")
 
@@ -53,12 +50,8 @@ class ConstructorPageLocators:
 class OrderFeedLocators:
     FEED_HEADER_BUTTON = (By.XPATH, "//p[text()='Лента Заказов']")
     FEED_TITLE = (By.XPATH, "//h1[text()='Лента заказов']")
-    
-    # Точный и стабильный селектор для карточки заказа в ленте
     ORDER_CARD = (By.XPATH, "//div[contains(@class, 'OrderHistory_listItem')]//a | //ul[contains(@class, 'OrderFeed_orderList')]//li[1]")
-    
     MODAL_WINDOW = (By.XPATH, "//section[contains(@class, 'Modal_modal')]")
     ORDER_MODAL_TITLE = (By.XPATH, "//div[contains(@class, 'Modal_modal')]//h2[contains(@class, 'text_type_digits-default')]")
-    
     TOTAL_ORDERS_COUNT = (By.XPATH, "//p[text()='Выполнено за все время:']/following-sibling::p")
     TODAY_ORDERS_COUNT = (By.XPATH, "//p[text()='Выполнено за сегодня:']/following-sibling::p")
