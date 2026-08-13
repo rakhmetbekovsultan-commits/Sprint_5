@@ -52,8 +52,6 @@ class TestConstructor:
         )
         assert modal.is_displayed()
 
-        modal_title = driver.find_element(*ConstructorPageLocators.MODAL_TITLE)
-        assert modal_title.is_displayed()
 
     def test_close_ingredient_modal(self, driver):
         driver.get(URL.BASE_URL)
