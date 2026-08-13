@@ -67,6 +67,6 @@ class TestConstructor:
         )
         close_button.click()
 
-        WebDriverWait(driver, 10).until(
+        assert WebDriverWait(driver, 10).until(
             EC.invisibility_of_element_located(ConstructorPageLocators.MODAL_WINDOW)
         )
